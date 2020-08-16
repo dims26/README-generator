@@ -19,11 +19,10 @@ var authors = '## Authors'
 var license = '## License'
 
 function openFile(fileName) {
-  if (!fs.existsSync(dir)){
-    fs.mkdirSync(dir)
+  if (!fs.existsSync(folderPath)){
+    fs.mkdirSync(folderPath)
     }
-  return fs.createWriteStream((folderPath, fileName),
-    { flags: 'w+' })
+  return fs.createWriteStream(path.join(folderPath, fileName),{ flags: 'w+' })
 }
 
 async function start() {
@@ -160,7 +159,7 @@ var x = start().then(() => {
   openFile(projectTitle)
   writeToFile()
   console.log(`Title: ${projectTitle}\n`)
-  console.log(`${headerValueMap.entries()}`)
+  console.log(headerValueMap)
   process.stdin.pause();
 });
 
@@ -190,7 +189,7 @@ function writeToFile() {
     readme.write(`${installation}\n`)
     list.forEach((item) => {
       item = identifyCode(item)
-      readme.write(`${item}\n`)
+      readme.write(`- ${item}\n`)
     })
   }
 
