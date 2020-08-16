@@ -5,7 +5,7 @@ const currentPath = process.cwd()
 var projectTitle;
 var projectDescription;
 var readme;
-var headersArray;
+var folderPath = path.join(currentPath, 'READMES')
 var headerValueMap = new Map()
 
 var gettingStarted = '## Getting Started'
@@ -19,7 +19,10 @@ var authors = '## Authors'
 var license = '## License'
 
 function openFile(fileName) {
-  return fs.createWriteStream(path.join(currentPath, 'Readmes', fileName),
+  if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir)
+    }
+  return fs.createWriteStream((folderPath, fileName),
     { flags: 'w+' })
 }
 
@@ -32,7 +35,7 @@ async function start() {
       resolve(title);
     })
   })
-  console.log(`Give an overview of your project\n`)
+  console.log(`\nGive an overview of your project\n`)
   projectDescription = await new Promise(function(resolve, reject) {
     process.stdin.once("data", function(data) {
       var note = data.toString().trim()
@@ -154,6 +157,7 @@ var str = 'visit Microsoft!'
 var res = str.replace("M", "\n\n		").replace("!", "\n");
 var x = start().then(() => {
   console.log("Done! Check 'Readmes' directory for your Readme file\n")
+  openFile(projectTitle)
   writeToFile()
   console.log(`Title: ${projectTitle}\n`)
   console.log(`${headerValueMap.entries()}`)
