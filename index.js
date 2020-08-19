@@ -2,21 +2,22 @@ const fs = require('fs')
 const path = require('path')
 
 const currentPath = process.cwd()
-var projectTitle;
-var projectDescription;
-var readme;
-var folderPath = path.join(currentPath, 'READMES')
-var headerValueMap = new Map()
+const folderPath = path.join(currentPath, 'READMES')
+const headerValueMap = new Map()
 
-var gettingStarted = '## Getting Started'
-var prerequisites = '### Prerequisites'
-var installation = '### Installation'
-var testing = '## Testing'
-var unitTest = '### Unit Tests'
-var endToEnd = '### End-to-End Tests'
-var deployment = '## Deployment'
-var authors = '## Authors'
-var license = '## License'
+let projectTitle;
+let projectDescription;
+let readme;
+
+const gettingStarted = '## Getting Started'
+const prerequisites = '### Prerequisites'
+const installation = '### Installation'
+const testing = '## Testing'
+const unitTest = '### Unit Tests'
+const endToEnd = '### End-to-End Tests'
+const deployment = '## Deployment'
+const authors = '## Authors'
+const license = '## License'
 
 function openFile(fileName) {
   if (!fs.existsSync(folderPath)){
@@ -29,7 +30,7 @@ async function start() {
   console.log("What is the title of your project?\n")
   projectTitle = await new Promise(function(resolve, reject) {
     process.stdin.once("data", function(data) {
-      var title = data.toString().trim()
+      let title = data.toString().trim()
       readme = openFile(`${title}.md`)
       resolve(title);
     })
@@ -37,7 +38,7 @@ async function start() {
   console.log(`\nGive an overview of your project\n`)
   projectDescription = await new Promise(function(resolve, reject) {
     process.stdin.once("data", function(data) {
-      var note = data.toString().trim()
+      let note = data.toString().trim()
       resolve(note);
     })
   })
@@ -45,18 +46,18 @@ async function start() {
 
   console.log("\nGetting Started\n")
   console.log('List out your project prerequisites. Separate items with a ","\n')
-  var preq = await new Promise(function(resolve, reject) {
+  let preq = await new Promise(function(resolve, reject) {
     process.stdin.once("data", function(data) {
-      var items = data.toString().trim().split(',').map((item) => {
+      let items = data.toString().trim().split(',').map((item) => {
         return item.trim()
       })
       resolve(items);
     })
   })
   console.log("\nList out your installation steps. Separate items with a ','. Put code samples for any item within '{}'\n")
-  var instSteps = await new Promise(function(resolve, reject) {
+  let instSteps = await new Promise(function(resolve, reject) {
     process.stdin.once("data", function(data) {
-      var items = data.toString().trim().split(',').map((item) => {
+      let items = data.toString().trim().split(',').map((item) => {
         return item.trim()
       })
       resolve(items);
@@ -68,23 +69,23 @@ async function start() {
 
   console.log("\nTesting\n")
   console.log('Give an overview of available tests, their location, and how to run them\n')
-  var testDescription = await new Promise(function(resolve, reject) {
+  let testDescription = await new Promise(function(resolve, reject) {
     process.stdin.once("data", function(data) {
-      var note = data.toString().trim()
+      let note = data.toString().trim()
       resolve(note);
     })
   })
   console.log(`\nGive an breakdown of available Unit tests.\nWhere there are none, simply press 'enter'.\nPut any code samples within '{}'\n`)
-  var unit = await new Promise(function(resolve, reject) {
+  let unit = await new Promise(function(resolve, reject) {
     process.stdin.once("data", function(data) {
-      var note = data.toString().trim()
+      let note = data.toString().trim()
       resolve(note);
     })
   })
   console.log(`\nGive an breakdown of available End-to-End tests.\nWhere there are none, simply press 'enter'.\nPut any code samples within '{}'\n`)
-  var end = await new Promise(function(resolve, reject) {
+  let end = await new Promise(function(resolve, reject) {
     process.stdin.once("data", function(data) {
-      var note = data.toString().trim()
+      let note = data.toString().trim()
       resolve(note);
     })
   })
@@ -94,9 +95,9 @@ async function start() {
 
   console.log('\nDeployment\n')
   console.log(`Give an breakdown of the deployment process\n`)
-  var deploy = await new Promise(function(resolve, reject) {
+  let deploy = await new Promise(function(resolve, reject) {
     process.stdin.once("data", function(data) {
-      var note = data.toString().trim()
+      let note = data.toString().trim()
       resolve(note);
     })
   })
@@ -104,9 +105,9 @@ async function start() {
 
   console.log(`\nAuthors\n`)
   console.log('List out the authors. Separate items with a ","\n')
-  var auth = await new Promise(function(resolve, reject) {
+  let auth = await new Promise(function(resolve, reject) {
     process.stdin.once("data", function(data) {
-      var items = data.toString().trim().split(',').map((item) => {
+      let items = data.toString().trim().split(',').map((item) => {
         return item.trim()
       })
       resolve(items);
@@ -116,9 +117,9 @@ async function start() {
 
   console.log(`\License\n`)
   console.log('Which License type is this work licensed under\n')
-  var lic = await new Promise(function(resolve, reject) {
+  let lic = await new Promise(function(resolve, reject) {
     process.stdin.once("data", function(data) {
-      var note = data.toString().trim()
+      let note = data.toString().trim()
       resolve(note);
     })
   })
@@ -126,7 +127,7 @@ async function start() {
 }
 
 function setTitle(title, description) {
-  var heading = `# ${title}\n`
+  let heading = `# ${title}\n`
   readme.write(heading)
   readme.write(`${description}\n`)
 }
@@ -142,7 +143,7 @@ function identifyCode(str){
 
 console.log('**README FILE GENERATOR**\n\n')
 
-var x = start().then(() => {
+let x = start().then(() => {
   console.log("Done! Check 'Readmes' directory for your Readme file\n")
   writeToFile()
   console.log(`Title: ${projectTitle}\n`)
@@ -151,8 +152,8 @@ var x = start().then(() => {
 });
 
 function writeToFile() {
-  var list;
-  var codeString;
+  let list;
+  let codeString;
 
   setTitle(projectTitle, projectDescription)
 
