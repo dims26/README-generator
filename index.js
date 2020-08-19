@@ -123,16 +123,6 @@ async function start() {
     })
   })
   headerValueMap.set(license, lic)
-
-  console.log("Provide your Readme header names, separated by commas")
-  headersArray = await new Promise(function(resolve, reject) {
-    process.stdin.once("data", function(data) {
-      var arr = data.toString().trim().split(',').map((header) => {
-        return header.trim()
-      })
-      resolve(arr);
-    });
-  });
 }
 
 function setTitle(title, description) {
@@ -152,8 +142,6 @@ function identifyCode(str){
 
 console.log('**README FILE GENERATOR**\n\n')
 
-var str = 'visit Microsoft!'
-var res = str.replace("M", "\n\n		").replace("!", "\n");
 var x = start().then(() => {
   console.log("Done! Check 'Readmes' directory for your Readme file\n")
   openFile(projectTitle)
