@@ -144,7 +144,6 @@ console.log('**README FILE GENERATOR**\n\n')
 
 var x = start().then(() => {
   console.log("Done! Check 'Readmes' directory for your Readme file\n")
-  openFile(projectTitle)
   writeToFile()
   console.log(`Title: ${projectTitle}\n`)
   console.log(headerValueMap)
